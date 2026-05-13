@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/webhooks/:path*", "destination": "/api/webhook" },
+    { "source": "/auth/:path*",     "destination": "/api/webhook" }
+  ]
+}
