@@ -4,81 +4,186 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ToggleTax – VAT Price Toggle | Shopify App</title>
-  <meta name="description" content="A simple Shopify app that adds a tax toggle to your store. Let customers switch between tax-inclusive and tax-exclusive prices instantly.">
+  <meta name="description" content="A Shopify Theme App Extension that adds a tax toggle to your store.">
   <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      max-width: 680px;
-      margin: 60px auto;
-      padding: 0 24px;
+      background: #f6f6f7;
       color: #1a1a1a;
-      line-height: 1.7;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
     }
-    h1 { font-size: 2rem; margin-bottom: 8px; }
-    h2 { font-size: 1.2rem; margin-top: 40px; margin-bottom: 12px; }
-    p  { color: #444; margin-bottom: 12px; }
-    ul { color: #444; padding-left: 20px; margin-bottom: 12px; }
-    li { margin-bottom: 6px; }
-    .tag {
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.1);
+      max-width: 900px;
+      width: 100%;
+      padding: 28px 32px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    /* LEFT */
+    .left {}
+
+    .app-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+    .app-icon {
+      width: 36px; height: 36px;
+      background: #000;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 700; font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .app-title { font-size: 1.25rem; font-weight: 700; }
+
+    .badge {
       display: inline-block;
       background: #f0f0f0;
       border-radius: 4px;
-      padding: 2px 10px;
-      font-size: .85rem;
+      padding: 2px 8px;
+      font-size: .75rem;
       color: #555;
-      margin-bottom: 24px;
+      margin-bottom: 14px;
     }
-    hr { border: none; border-top: 1px solid #e5e5e5; margin: 40px 0; }
-    footer { color: #888; font-size: .85rem; margin-top: 60px; }
-    a { color: #1a1a1a; }
+
+    .desc {
+      font-size: .9rem;
+      color: #444;
+      line-height: 1.55;
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      font-size: .85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: #888;
+      margin-bottom: 10px;
+    }
+
+    ol {
+      padding-left: 18px;
+      color: #333;
+      font-size: .875rem;
+      line-height: 1.6;
+    }
+    ol li { margin-bottom: 4px; }
+    ol li strong { color: #000; }
+
+    .note {
+      margin-top: 14px;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: .8rem;
+      color: #166534;
+    }
+
+    /* RIGHT */
+    .right { display: flex; flex-direction: column; gap: 12px; }
+
+    .poster {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #e5e5e5;
+      display: block;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+    .feat {
+      background: #f9f9f9;
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: .78rem;
+      color: #444;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .feat::before {
+      content: '✓';
+      color: #16a34a;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 640px) {
+      .card { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
 
-  <h1>ToggleTax</h1>
-  <span class="tag">Shopify Theme App Extension</span>
+<div class="card">
 
-  <p>
-    ToggleTax adds a simple toggle widget to your Shopify store that lets customers
-    switch between tax-inclusive and tax-exclusive prices — on product pages and in the cart.
-  </p>
+  <!-- LEFT: Setup -->
+  <div class="left">
+    <div class="app-header">
+      <div class="app-icon">%</div>
+      <span class="app-title">ToggleTax</span>
+    </div>
+    <span class="badge">Shopify Theme App Extension</span>
 
-  <p>
-    No backend. No servers. Works entirely in the browser using your theme's existing price elements.
-  </p>
+    <p class="desc">
+      Adds a toggle widget to your store that lets customers switch between
+      tax-inclusive and tax-exclusive prices — on product pages and in the cart.
+      No backend, no servers.
+    </p>
 
-  <h2>How to set up</h2>
-  <ol style="color:#444; padding-left:20px; margin-bottom:12px;">
-    <li>Install the app from the Shopify App Store.</li>
-    <li>Go to <strong>Online Store → Themes → Customise</strong>.</li>
-    <li>Open any product page in the editor.</li>
-    <li>Click <strong>Add block → Apps → Tax Toggle</strong>.</li>
-    <li>Set your tax rate (e.g. 20 for 20% VAT / GST).</li>
-    <li>Toggle "Theme base prices include tax" if your Shopify prices already include tax.</li>
-    <li>Save. Done.</li>
-  </ol>
+    <h2>How to set up</h2>
+    <ol>
+      <li>Go to <strong>Online Store → Themes → Edit theme</strong></li>
+      <li>Navigate to a <strong>Product page</strong> in the editor</li>
+      <li>Click <strong>Add block → Apps → Tax Toggle</strong></li>
+      <li>Set your <strong>tax rate</strong> (e.g. 20 for 20% VAT / GST)</li>
+      <li>Enable <strong>"Base prices include tax"</strong> if your prices already include tax</li>
+      <li><strong>Save</strong> — done! Cart is updated automatically</li>
+    </ol>
 
-  <h2>What it does</h2>
-  <ul>
-    <li>Displays a toggle (Excl. Tax / Incl. Tax) on the product page</li>
-    <li>Automatically updates all matching price elements on the page</li>
-    <li>Auto-injects the toggle into cart drawer / cart page too</li>
-    <li>Remembers the customer's preference across pages</li>
-    <li>Works with any Shopify theme — no code changes required</li>
-  </ul>
+    <div class="note">
+      ✦ The widget automatically adapts to your theme's font and inherits your store's typography.
+    </div>
+  </div>
 
-  <h2>Compatibility</h2>
-  <p>
-    Works with any country's tax system — VAT (UK, EU), GST (Australia, New Zealand),
-    Sales Tax, or any fixed-rate tax. The tax rate is fully configurable.
-  </p>
+  <!-- RIGHT: Poster + features -->
+  <div class="right">
+    <img
+      class="poster"
+      src="poster.png"
+      alt="ToggleTax supports 20 languages"
+    >
+    <div class="features">
+      <div class="feat">Works with any theme</div>
+      <div class="feat">20+ languages</div>
+      <div class="feat">Auto cart injection</div>
+      <div class="feat">Remembers preference</div>
+      <div class="feat">0% – 100% tax rates</div>
+      <div class="feat">No backend needed</div>
+    </div>
+  </div>
 
-  <hr>
-
-  <footer>
-    ToggleTax – VAT Price Toggle &nbsp;·&nbsp;
-    <a href="mailto:support@toggletax.app">support@toggletax.app</a>
-  </footer>
+</div>
 
 </body>
 </html>
