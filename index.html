@@ -4,117 +4,107 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ToggleTax – VAT Price Toggle | Shopify App</title>
-  <meta name="description" content="A Shopify Theme App Extension that adds a tax toggle to your store.">
+  <meta name="description" content="A Shopify Theme App Extension that adds a tax toggle widget to your store.">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    body {
+    html, body {
+      height: 100%;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       background: #f6f6f7;
       color: #1a1a1a;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
+      overflow: hidden;
     }
 
-    .card {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 1px 4px rgba(0,0,0,.1);
-      max-width: 900px;
-      width: 100%;
-      padding: 28px 32px;
+    .layout {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 28px;
-      align-items: start;
+      height: 100vh;
+      width: 100vw;
+      gap: 0;
     }
 
-    /* LEFT */
-    .left {}
+    /* ── LEFT PANEL ── */
+    .left {
+      padding: 28px 32px 24px 32px;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-right: 1px solid #e5e5e5;
+      overflow: hidden;
+    }
 
     .app-header {
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 6px;
+      gap: 12px;
+      margin-bottom: 8px;
     }
-    .app-icon {
-      width: 36px; height: 36px;
-      background: #000;
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      color: #fff; font-weight: 700; font-size: 1rem;
+
+    .app-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      object-fit: cover;
       flex-shrink: 0;
     }
-    .app-title { font-size: 1.25rem; font-weight: 700; }
+
+    .app-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -.01em;
+    }
 
     .badge {
       display: inline-block;
       background: #f0f0f0;
       border-radius: 4px;
-      padding: 2px 8px;
-      font-size: .75rem;
-      color: #555;
+      padding: 3px 9px;
+      font-size: .72rem;
+      color: #666;
       margin-bottom: 14px;
     }
 
     .desc {
-      font-size: .9rem;
+      font-size: .875rem;
       color: #444;
-      line-height: 1.55;
+      line-height: 1.6;
       margin-bottom: 18px;
     }
 
-    h2 {
-      font-size: .85rem;
-      font-weight: 600;
+    .section-label {
+      font-size: .7rem;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: .05em;
-      color: #888;
+      letter-spacing: .08em;
+      color: #999;
       margin-bottom: 10px;
     }
 
     ol {
       padding-left: 18px;
-      color: #333;
-      font-size: .875rem;
-      line-height: 1.6;
+      color: #222;
+      font-size: .85rem;
+      line-height: 1;
     }
-    ol li { margin-bottom: 4px; }
+    ol li {
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
     ol li strong { color: #000; }
-
-    .note {
-      margin-top: 14px;
-      background: #f0fdf4;
-      border: 1px solid #bbf7d0;
-      border-radius: 6px;
-      padding: 8px 12px;
-      font-size: .8rem;
-      color: #166534;
-    }
-
-    /* RIGHT */
-    .right { display: flex; flex-direction: column; gap: 12px; }
-
-    .poster {
-      width: 100%;
-      border-radius: 8px;
-      border: 1px solid #e5e5e5;
-      display: block;
-    }
 
     .features {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 6px;
+      margin-top: 16px;
     }
     .feat {
       background: #f9f9f9;
+      border: 1px solid #eee;
       border-radius: 6px;
-      padding: 8px 10px;
+      padding: 7px 10px;
       font-size: .78rem;
       color: #444;
       display: flex;
@@ -125,62 +115,85 @@
       content: '✓';
       color: #16a34a;
       font-weight: 700;
+      font-size: .8rem;
       flex-shrink: 0;
     }
 
-    @media (max-width: 640px) {
-      .card { grid-template-columns: 1fr; }
+    .note {
+      margin-top: 14px;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: .78rem;
+      color: #166534;
+      line-height: 1.4;
+    }
+
+    /* ── RIGHT PANEL ── */
+    .right {
+      background: #f0f0f0;
+      display: flex;
+      align-items: stretch;
+      overflow: hidden;
+    }
+
+    .poster {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
     }
   </style>
 </head>
 <body>
 
-<div class="card">
+<div class="layout">
 
-  <!-- LEFT: Setup -->
+  <!-- LEFT -->
   <div class="left">
-    <div class="app-header">
-      <div class="app-icon">%</div>
-      <span class="app-title">ToggleTax</span>
+    <div>
+      <div class="app-header">
+        <img class="app-logo" src="logo.jpg" alt="ToggleTax logo">
+        <span class="app-title">ToggleTax</span>
+      </div>
+      <span class="badge">Shopify Theme App Extension</span>
+
+      <p class="desc">
+        Adds a toggle widget to your store that lets customers switch between
+        tax-inclusive and tax-exclusive prices — on product pages and in the cart.
+        No backend, no servers.
+      </p>
+
+      <div class="section-label">How to set up</div>
+      <ol>
+        <li>Go to <strong>Online Store → Themes → Edit theme</strong></li>
+        <li>Navigate to a <strong>Product page</strong> in the editor</li>
+        <li>Click <strong>Add block → Apps → Tax Toggle</strong></li>
+        <li>Set your <strong>tax rate</strong> (e.g. 20 for 20% VAT / GST)</li>
+        <li>Enable <strong>"Base prices include tax"</strong> if your prices already include tax</li>
+        <li><strong>Save</strong> — done! Cart updates automatically</li>
+      </ol>
+
+      <div class="features">
+        <div class="feat">Works with any theme</div>
+        <div class="feat">20 languages</div>
+        <div class="feat">Auto cart injection</div>
+        <div class="feat">Remembers preference</div>
+        <div class="feat">0% – 100% tax rates</div>
+        <div class="feat">No backend needed</div>
+      </div>
     </div>
-    <span class="badge">Shopify Theme App Extension</span>
-
-    <p class="desc">
-      Adds a toggle widget to your store that lets customers switch between
-      tax-inclusive and tax-exclusive prices — on product pages and in the cart.
-      No backend, no servers.
-    </p>
-
-    <h2>How to set up</h2>
-    <ol>
-      <li>Go to <strong>Online Store → Themes → Edit theme</strong></li>
-      <li>Navigate to a <strong>Product page</strong> in the editor</li>
-      <li>Click <strong>Add block → Apps → Tax Toggle</strong></li>
-      <li>Set your <strong>tax rate</strong> (e.g. 20 for 20% VAT / GST)</li>
-      <li>Enable <strong>"Base prices include tax"</strong> if your prices already include tax</li>
-      <li><strong>Save</strong> — done! Cart is updated automatically</li>
-    </ol>
 
     <div class="note">
       ✦ The widget automatically adapts to your theme's font and inherits your store's typography.
     </div>
   </div>
 
-  <!-- RIGHT: Poster + features -->
+  <!-- RIGHT: Poster -->
   <div class="right">
-    <img
-      class="poster"
-      src="poster.png"
-      alt="ToggleTax supports 20 languages"
-    >
-    <div class="features">
-      <div class="feat">Works with any theme</div>
-      <div class="feat">20+ languages</div>
-      <div class="feat">Auto cart injection</div>
-      <div class="feat">Remembers preference</div>
-      <div class="feat">0% – 100% tax rates</div>
-      <div class="feat">No backend needed</div>
-    </div>
+    <img class="poster" src="poster.png" alt="ToggleTax supports 20+ languages">
   </div>
 
 </div>
