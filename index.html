@@ -16,21 +16,33 @@
       overflow: hidden;
     }
 
-    .layout {
+    /* ── PAGE: top row + pricing bar ── */
+    .page {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr auto;
       height: 100vh;
       width: 100vw;
+      padding: 16px 16px 0 16px;
+      gap: 12px;
     }
 
-    /* ── LEFT PANEL ── */
+    /* ── TOP ROW ── */
+    .top {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      min-height: 0;
+    }
+
+    /* LEFT panel */
     .left {
-      padding: 28px 32px 24px 32px;
       background: #fff;
+      border: 2px solid #1a1a6e;
+      border-radius: 12px;
+      padding: 24px 28px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      border-right: 1px solid #e5e5e5;
+      gap: 14px;
       overflow: hidden;
     }
 
@@ -38,167 +50,144 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      margin-bottom: 8px;
     }
-
     .app-logo {
-      width: 44px;
-      height: 44px;
+      width: 48px;
+      height: 48px;
       border-radius: 10px;
       object-fit: cover;
       flex-shrink: 0;
     }
-
     .app-title {
       font-size: 1.5rem;
       font-weight: 700;
-      letter-spacing: -.01em;
+      letter-spacing: -.02em;
     }
-
     .badge {
       display: inline-block;
       background: #f0f0f0;
-      border-radius: 4px;
-      padding: 3px 9px;
+      border-radius: 5px;
+      padding: 3px 10px;
       font-size: .72rem;
       color: #666;
-      margin-bottom: 14px;
+      width: fit-content;
     }
-
     .desc {
-      font-size: .875rem;
+      font-size: .85rem;
       color: #444;
       line-height: 1.6;
-      margin-bottom: 18px;
     }
-
     .section-label {
-      font-size: .7rem;
+      font-size: .68rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: .08em;
       color: #999;
-      margin-bottom: 10px;
     }
-
     ol {
       padding-left: 18px;
       color: #222;
-      font-size: .85rem;
+      font-size: .84rem;
     }
     ol li {
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       line-height: 1.4;
     }
     ol li strong { color: #000; }
 
-    .note {
-      margin-top: 14px;
-      background: #f0fdf4;
-      border: 1px solid #bbf7d0;
-      border-radius: 6px;
-      padding: 8px 12px;
-      font-size: .78rem;
-      color: #166534;
-      line-height: 1.4;
-    }
-
-    /* ── RIGHT PANEL ── */
+    /* RIGHT panel */
     .right {
       background: #fff;
-      display: flex;
-      flex-direction: column;
+      border-radius: 12px;
       overflow: hidden;
-    }
-
-    /* Poster fills remaining space */
-    .poster-wrap {
-      flex: 1;
-      min-height: 0;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 16px 16px 8px 16px;
-      background: #fff;
     }
-
     .poster {
       width: 100%;
       height: 100%;
       object-fit: contain;
+      object-position: center center;
       display: block;
     }
 
-    /* Pricing grid pinned at bottom */
+    /* ── PRICING BAR (full width) ── */
     .pricing {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 6px;
-      padding: 8px 16px 16px 16px;
-      background: #fff;
-      border-top: 1px solid #f0f0f0;
+      gap: 8px;
+      padding: 0 0 16px 0;
       flex-shrink: 0;
     }
     .plan {
-      background: #f9f9f9;
-      border: 1px solid #eee;
-      border-radius: 8px;
-      padding: 10px 10px 8px;
-      text-align: center;
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 10px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+    .plan.highlight {
+      background: #111;
+      border-color: #111;
+    }
+    .plan-left {
+      flex-shrink: 0;
     }
     .plan-name {
-      font-size: .7rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: .06em;
-      color: #888;
-      margin-bottom: 4px;
-    }
-    .plan-price {
-      font-size: 1rem;
+      font-size: .68rem;
       font-weight: 700;
-      color: #111;
-      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: #999;
+      margin-bottom: 2px;
     }
-    .plan-price span {
+    .plan.highlight .plan-name { color: #aaa; }
+    .plan-price {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #111;
+      line-height: 1;
+    }
+    .plan-price sup {
+      font-size: .65rem;
+      font-weight: 600;
+      vertical-align: super;
+    }
+    .plan-price sub {
       font-size: .65rem;
       font-weight: 400;
       color: #888;
+      vertical-align: baseline;
     }
+    .plan.highlight .plan-price { color: #fff; }
+    .plan.highlight .plan-price sub { color: #aaa; }
     .plan-desc {
-      font-size: .7rem;
-      color: #555;
-      line-height: 1.3;
+      font-size: .75rem;
+      color: #666;
+      line-height: 1.35;
     }
-    .plan.highlight {
-      border-color: #111;
-      background: #111;
-    }
-    .plan.highlight .plan-name,
-    .plan.highlight .plan-price,
-    .plan.highlight .plan-desc { color: #fff; }
-    .plan.highlight .plan-price span { color: #aaa; }
+    .plan.highlight .plan-desc { color: #ccc; }
   </style>
 </head>
 <body>
 
-<div class="layout">
+<div class="page">
 
-  <!-- LEFT -->
-  <div class="left">
-    <div>
+  <!-- TOP: left info | right poster -->
+  <div class="top">
+
+    <div class="left">
       <div class="app-header">
         <img class="app-logo" src="logo.jpg" alt="ToggleTax logo">
         <span class="app-title">ToggleTax</span>
       </div>
       <span class="badge">Shopify Theme App Extension</span>
-
       <p class="desc">
         Adds a toggle widget to your store that lets customers switch between
         tax-inclusive and tax-exclusive prices — on product pages and in the cart.
         No backend, no servers.
       </p>
-
       <div class="section-label">How to set up</div>
       <ol>
         <li>Go to <strong>Online Store → Themes → Edit theme</strong></li>
@@ -210,37 +199,41 @@
       </ol>
     </div>
 
-    <div class="note">
-      ✦ The widget automatically adapts to your theme's font and inherits your store's typography.
-    </div>
-  </div>
-
-  <!-- RIGHT: Poster top, features bottom -->
-  <div class="right">
-    <div class="poster-wrap">
+    <div class="right">
       <img class="poster" src="poster.png" alt="ToggleTax supports 20 languages">
     </div>
-    <div class="pricing">
-      <div class="plan">
+
+  </div>
+
+  <!-- PRICING BAR: full width -->
+  <div class="pricing">
+    <div class="plan highlight">
+      <div class="plan-left">
         <div class="plan-name">Free</div>
-        <div class="plan-price">$0<span>/mo</span></div>
-        <div class="plan-desc">Full functionality,<br>up to 10 products</div>
+        <div class="plan-price"><sup>$</sup>0<sub>/mo</sub></div>
       </div>
-      <div class="plan">
+      <div class="plan-desc">Full functionality,<br>up to 10 products</div>
+    </div>
+    <div class="plan">
+      <div class="plan-left">
         <div class="plan-name">Growth</div>
-        <div class="plan-price">$9.99<span>/mo</span></div>
-        <div class="plan-desc">Full functionality,<br>up to 200 products</div>
+        <div class="plan-price"><sup>$</sup>9.99<sub>/mo</sub></div>
       </div>
-      <div class="plan highlight">
+      <div class="plan-desc">Full functionality,<br>up to 200 products</div>
+    </div>
+    <div class="plan">
+      <div class="plan-left">
         <div class="plan-name">Pro</div>
-        <div class="plan-price">$24.99<span>/mo</span></div>
-        <div class="plan-desc">Full functionality,<br>up to 500 products</div>
+        <div class="plan-price"><sup>$</sup>24.99<sub>/mo</sub></div>
       </div>
-      <div class="plan">
+      <div class="plan-desc">Full functionality,<br>up to 500 products</div>
+    </div>
+    <div class="plan">
+      <div class="plan-left">
         <div class="plan-name">Business</div>
-        <div class="plan-price">$49.99<span>/mo</span></div>
-        <div class="plan-desc">Full functionality,<br>unlimited products</div>
+        <div class="plan-price"><sup>$</sup>49.99<sub>/mo</sub></div>
       </div>
+      <div class="plan-desc">Full functionality,<br>unlimited products</div>
     </div>
   </div>
 
